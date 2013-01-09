@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>The Derry 5000</title>
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css">
+<link href='http://fonts.googleapis.com/css?family=Raleway:700,400' rel='stylesheet' type='text/css'>
+	<style type="text/css">
+		body {background-color: black;}
+		.border {padding: 10px; border-radius: 5px; background-color:#efefef;}
+		.percentage {margin-left: <%= h @percentage - 2 %>%;font-size: 29px;position: relative;top:-20px;}
+		.hours {margin-left: <%= h @zoom_percentage - 2 %>%;font-size: 29px;position: relative;top:-20px;}
+
+		.progress {height: 40px;}
+		p.super {color: white;font-family: 'Raleway', serif; text-align: left; font-size: 100px;font-weight: 700;}
+		h4 {color: white;font-family: 'Raleway', serif; text-align: left; font-size: 30px;font-weight: 400;}
+		.startRange {margin-left: 0px;color: #ABABAB;position: relative;top:-20px;}
+		.endRange {margin-left: 96%;margin-top: -50px;color: #ABABAB;position: relative;top:-20px;}
+		.center {text-align: center;}
+		.navbar {margin-top: 25px;}
+		.navbar ul li:hover {background-color: #2358A6;}
+		.navbar ul li a {color:white;}
+		.gradient {
+			background: #2989d8;
+			background: -moz-linear-gradient(left,  #2989d8 0%, #7db9e8 46%, #2989d8 100%);
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#2989d8), color-stop(46%,#7db9e8), color-stop(100%,#2989d8));
+			background: -webkit-linear-gradient(left,  #2989d8 0%,#7db9e8 46%,#2989d8 100%);
+			background: -o-linear-gradient(left,  #2989d8 0%,#7db9e8 46%,#2989d8 100%);
+			background: -ms-linear-gradient(left,  #2989d8 0%,#7db9e8 46%,#2989d8 100%);
+			background: linear-gradient(to right,  #2989d8 0%,#7db9e8 46%,#2989d8 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2989d8', endColorstr='#2989d8',GradientType=1 );
+		}
+		.text_img {margin-left:2%;}
+ 	</style>
+	</head>
+<body>
+	<div class="container gradient">
+		<div class="navbar navbar-inverse">
+  			<div class="navbar-inner ">
+  			
+				<a class="brand" href="http://cornerstonecity.eu">Cornerstone City Church</a>
+				<ul class="nav">
+	  				<li><a href="http://cornerstonecity.eu">HOME</a></li>
+	  				<li><a href="http://cornerstonecity.eu/index.php?option=com_content&view=article&id=42&Itemid=163">GATHERINGS</a></li>
+	  				<li><a href="http://cornerstonecity.eu/index.php?option=com_content&view=article&id=44&Itemid=176">GROW</a></li>
+	  				<li><a href="http://cornerstonecity.eu/index.php?option=com_content&view=article&id=45&Itemid=177">GIVE</a></li>
+	  				<li><a href="http://cornerstonecity.eu/index.php?option=com_content&view=article&id=42&Itemid=160">GET</a></li>
+	  				<li><a href="http://cornerstonecity.eu/index.php?option=com_content&view=article&id=41&Itemid=156">ABOUT</a></li>
+				</ul>
+  			</div>
+  		</div>
+	<br>
+	<br>
+
+		<div class="row">
+			<div class="span9"><img class="text_img" src="/img/cover.png">
+			</div>
+			<div class="span3">
+					<br>
+					<br>
+					<p class="super"><%= h @total_hours %></p>
+					<br>
+					<h4>Hours Delivered</h4>
+					<br>
+					<br>
+				<div class="">
+			      	<form class="form-signin" action="/timegift/create" method="post">
+				        <h4 class="form-signin-heading">Record Hours</h4>
+				        <input name="name" type="text" class="input-block" placeholder="Name">
+				        <input name="event" type="text" class="input-block" placeholder="Event">
+				        <input name="hours" type="text" class="input-block" placeholder="Hours Served">
+				        <button class="btn btn-large btn-primary" type="submit">Save</button>
+			      	</form>
+			     	<% if @errors %>
+			      	<div class="alert alert-error">
+            		<button type="button" class="close" data-dismiss="alert">&times;</button>
+
+	            		<% @errors.each do |error| %>
+		            		<p class=""><%= error %>
+		            		</p>
+		            	<% end %>
+            		</div>
+            		<% end %>
+          		</div>
+			</div>
+
+		</div><!-- /row -->
+		<br>
+		<br>
+		<br>
+    	<div class="row">
+	    	<div class="span12">
+		    		<div class="progress progress-striped active">
+		  				<div class="bar" style="width: <%= h @percentage %>%;"></div>
+					</div>
+					<span class="startRange">0</span><span class="endRange">5000</span>
+
+					<h4 class="percentage"><%= h @percentage %>% Complete</h4>
+			</div>
+			
+		</div>
+		<br>
+		
+    </div>
+
+ <!-- /container -->
+</body>
+</html>
