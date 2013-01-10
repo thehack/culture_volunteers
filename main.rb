@@ -3,8 +3,6 @@ require 'rubygems'
 require 'sinatra'
 require 'data_mapper'
 require 'obscenity'
-require "sinatra/reloader"
-also_reload 'views/index.erb'
 
 DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/db.sqlite3")
 
@@ -14,6 +12,7 @@ class Gift
   property :name, String,  :length => 1..25
   property :event, String, :length => 1..25
   property :hours, Integer, :required => true
+  property :month_created, Integer
   property :created_on, DateTime
   property :updated_at, DateTime
 
@@ -51,7 +50,7 @@ get '/' do
   @total_hours = Gift.sum(:hours)
   @percentage = @total_hours.percent_of(5000)
   @errors = session[:errors]
-
+  @month_hours = Gift.sum(:hours, :conditions => [ 'month_created = ?', Time.now.month ])
   #how many digits?
   digits = @total_hours.to_s.length
   rounder = 10**(2)
@@ -66,6 +65,7 @@ post '/timegift/create' do
 	time_gift = Gift.create(  	:name => params[:name],
   									:event => params[:event],
                     :hours => params[:hours],
+                    :month_created => Time.now.month,
   									:created_on => Time.now,
   									:updated_at => Time.now )
   if time_gift.save

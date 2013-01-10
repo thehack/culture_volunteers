@@ -1,0 +1,2 @@
+# Don't overwrite the database.
+db.sqlite3

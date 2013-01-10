@@ -6,22 +6,20 @@
 	<script src="js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css">
-<link href='http://fonts.googleapis.com/css?family=Raleway:700,400' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Raleway:700,400' rel='stylesheet' type='text/css'>
 	<style type="text/css">
 		body {background-color: black;}
+		.progress {min-height: 30px; background-color: black;}
 		.border {padding: 10px; border-radius: 5px; background-color:#efefef;}
-		.percentage {margin-left: <%= h @percentage - 2 %>%;font-size: 29px;position: relative;top:-20px;}
-		.hours {margin-left: <%= h @zoom_percentage - 2 %>%;font-size: 29px;position: relative;top:-20px;}
-
-		.progress {height: 40px;}
 		p.super {color: white;font-family: 'Raleway', serif; text-align: left; font-size: 100px;font-weight: 700;}
-		h4 {color: white;font-family: 'Raleway', serif; text-align: left; font-size: 30px;font-weight: 400;}
-		.startRange {margin-left: 0px;color: #ABABAB;position: relative;top:-20px;}
-		.endRange {margin-left: 96%;margin-top: -50px;color: #ABABAB;position: relative;top:-20px;}
+		h4 {color: white;font-family: 'Raleway', serif; text-align: left; font-size: 30px;font-weight: 400;margin-top: 20px}
+		.startRange {margin-left: 0px;color: black;margin-top:-40px;}
+		.endRange {margin-left: 96%;margin-top: -50px;color: black;position: relative;margin-top:-40px;}
 		.center {text-align: center;}
 		.navbar {margin-top: 25px;}
 		.navbar ul li:hover {background-color: #2358A6;}
 		.navbar ul li a {color:white;}
+		.grey {background-color: #F5F5F5; font-size: 8px}
 		.gradient {
 			background: #2989d8;
 			background: -moz-linear-gradient(left,  #2989d8 0%, #7db9e8 46%, #2989d8 100%);
@@ -33,6 +31,8 @@
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2989d8', endColorstr='#2989d8',GradientType=1 );
 		}
 		.text_img {margin-left:2%;}
+		.thanks {font-size: 9px;color: white;font-family: 'Raleway', serif; text-align: left;font-weight: 400;}
+}
  	</style>
 	</head>
 <body>
@@ -90,21 +90,45 @@
 		<br>
 		<br>
 		<br>
-    	<div class="row">
-	    	<div class="span12">
-		    		<div class="progress progress-striped active">
-		  				<div class="bar" style="width: <%= h @percentage %>%;"></div>
-					</div>
-					<span class="startRange">0</span><span class="endRange">5000</span>
 
-					<h4 class="percentage"><%= h @percentage %>% Complete</h4>
+		<div class="row">
+			<div class="span5 offset1">
+				<h4>Volunteers Hours this Month:</h4>
 			</div>
-			
+			<div class="span6"><h4><%= @month_hours %></h4>
+			</div>
 		</div>
-		<br>
-		
-    </div>
+		<div class="row">
+			<div class="span5 offset1">
+				<h4>Volunteers Hours this Year:</h4>
+			</div>
+			<div class="span6"><h4><%= @total_hours %></h4>
+			</div>
+		</div>
 
- <!-- /container -->
+		<div class="row">
+			<div class="offset1 span5"><h4>Percent Complete:</h4></div>
+			<div class="span6"><h4><%= h @percentage %>%</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="offset1 span10">
+				<div class="thanks">Progress Bar</div>
+				<div class="progress progress-striped active">
+	  				<div class="bar" style="width: <%= h @percentage %>%;"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="offset1 span10">
+				<h4>Thank You, Volunteers!</h4>
+				<p class="thanks">
+				<% for gift in @gifts %>
+				<%= h gift.name.capitalize %>, <%= h gift.event.capitalize%>: <%= h gift.hours%>&nbsp;&nbsp;&bull;&nbsp;&nbsp;
+				<% end %>
+				</p>
+			</div>
+		</div><!-- /row -->
+    </div><!-- /container -->
 </body>
 </html>
